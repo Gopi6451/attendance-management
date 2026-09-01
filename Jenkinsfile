@@ -54,5 +54,21 @@ pipeline {
                 '''
             }
         }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                    docker pull $ECR_REPOSITORY:$IMAGE_TAG
+        
+                    docker stop attendance-management || true
+                    docker rm attendance-management || true
+        
+                    docker run -d \
+                      --name attendance-management \
+                      -p 8000:8000 \
+                      $ECR_REPOSITORY:$IMAGE_TAG
+                '''
+            }
+        }
     }
 }
