@@ -12,7 +12,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                echo 'Checking out source code...'
+                echo 'Checking out source code - Webhook Test...'
             }
         }
 
