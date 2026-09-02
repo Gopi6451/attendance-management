@@ -18,7 +18,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                docker build -t attendance-management:${BUILD_NUMBER} .    
+                sh 'docker build -t attendance-management:${BUILD_NUMBER} .'
             }
         }
 
