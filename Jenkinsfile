@@ -4,7 +4,7 @@ pipeline {
     environment {
         AWS_REGION = 'ap-south-1'
         ECR_REPOSITORY = '755332618816.dkr.ecr.ap-south-1.amazonaws.com/attendance-management'
-        IMAGE_TAG = 'latest'
+        IMAGE_TAG = "${BUILD_NUMBER}"
     }
 
     
@@ -18,7 +18,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t attendance-management:latest .'
+                docker build -t attendance-management:${BUILD_NUMBER} .    
             }
         }
 
@@ -41,7 +41,7 @@ pipeline {
         stage('Docker Tag') {
             steps {
                 sh '''
-                    docker tag attendance-management:latest \
+                    docker tag attendance-management:${BUILD_NUMBER} \
                     $ECR_REPOSITORY:$IMAGE_TAG
                 '''
             }
