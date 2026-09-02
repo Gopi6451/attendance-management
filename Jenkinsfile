@@ -58,13 +58,14 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    docker pull $ECR_REPOSITORY:$IMAGE_TAG
-        
                     docker stop attendance-management || true
                     docker rm attendance-management || true
         
+                    docker pull $ECR_REPOSITORY:$IMAGE_TAG
+        
                     docker run -d \
                       --name attendance-management \
+                      --restart unless-stopped \
                       -p 8000:8000 \
                       $ECR_REPOSITORY:$IMAGE_TAG
                 '''
