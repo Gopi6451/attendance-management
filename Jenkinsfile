@@ -64,10 +64,14 @@ pipeline {
                     docker pull $ECR_REPOSITORY:$IMAGE_TAG
         
                     docker run -d \
-                      --name attendance-management \
-                      --restart unless-stopped \
-                      -p 8000:8000 \
-                      $ECR_REPOSITORY:$IMAGE_TAG
+                        --name attendance-management \
+                        -p 8000:8000 \
+                        --restart unless-stopped \
+                        $ECR_REPOSITORY:$IMAGE_TAG
+        
+                    sleep 5
+        
+                    curl -f http://localhost:8000
                 '''
             }
         }
