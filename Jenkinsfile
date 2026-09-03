@@ -59,20 +59,12 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    docker stop attendance-management || true
-                    docker rm attendance-management || true
-        
-                    docker pull $ECR_REPOSITORY:$IMAGE_TAG
-        
-                    docker run -d \
-                        --name attendance-management \
-                        -p 8000:8000 \
-                        --restart unless-stopped \
-                        $ECR_REPOSITORY:$IMAGE_TAG
-        
-                    sleep 5
-        
-                    curl -f http://localhost:8000
+                    sudo -u jenkins kubectl set image deployment/attendance-management \
+                    attendance-management=$ECR_REPOSITORY:$IMAGE_TAG
+
+                    sudo -u jenkins kubectl rollout status deployment/attendance-management
+
+                    sudo -u jenkins kubectl get pods
                 '''
             }
         }
