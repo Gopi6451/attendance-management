@@ -56,15 +56,15 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+       stage('Deploy') {
             steps {
                 sh '''
-                    sudo -u jenkins kubectl set image deployment/attendance-management \
+                    kubectl set image deployment/attendance-management \
                     attendance-management=$ECR_REPOSITORY:$IMAGE_TAG
 
-                    sudo -u jenkins kubectl rollout status deployment/attendance-management
+                    kubectl rollout status deployment/attendance-management
 
-                    sudo -u jenkins kubectl get pods
+                    kubectl get pods
                 '''
             }
         }
