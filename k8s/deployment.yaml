@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: attendance-management
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: attendance-management
+
+  template:
+    metadata:
+      labels:
+        app: attendance-management
+
+    spec:
+      imagePullSecrets:
+        - name: ecr-secret
+
+      containers:
+        - name: attendance-management
+          image: 755332618816.dkr.ecr.ap-south-1.amazonaws.com/attendance-management:latest
+          ports:
+            - containerPort: 8000

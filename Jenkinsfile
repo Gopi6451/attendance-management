@@ -67,6 +67,6 @@ pipeline {
                     kubectl get pods
                 '''
             }
-        }
+        }   
     }
 }

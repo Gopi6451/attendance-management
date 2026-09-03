@@ -448,3 +448,5 @@ def attendance_report(
         leave=leave,
         attendance_percentage=attendance_percentage
     )
+
+    
